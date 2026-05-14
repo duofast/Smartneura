@@ -1,3 +1,4 @@
+import Footer from "./components/Footer";
 import Header from "./components/Header";
 
 export default function Home() {
@@ -7,6 +8,7 @@ export default function Home() {
       <main>
         {/* Hero, Approach, etc. coming next */}
       </main>
+      <Footer />
     </div>
   );
 }
