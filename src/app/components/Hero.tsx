@@ -66,7 +66,7 @@ export default function Hero() {
             transition: {
                 delay: i * 0.03,
                 duration: 0.4,
-                ease: [0.22, 1, 0.36, 1],
+                ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
             },
         }),
         exit: (i: number) => ({
@@ -75,7 +75,7 @@ export default function Hero() {
             transition: {
                 delay: i * 0.01,
                 duration: 0.2,
-                ease: "easeIn",
+                ease: "easeIn" as const,
             },
         }),
     };
@@ -88,7 +88,7 @@ export default function Hero() {
             transition: {
                 delay: title.length * 0.03 + 0.2,
                 duration: 0.7,
-                ease: [0.22, 1, 0.36, 1],
+                ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
             },
         },
         exit: {
@@ -96,7 +96,7 @@ export default function Hero() {
             y: -8,
             transition: {
                 duration: 0.3,
-                ease: "easeIn",
+                ease: "easeIn" as const,
             },
         },
     };
