@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export default function Transformation() {
     return (
-        <section className="relative w-full py-20 lg:py-32 bg-white overflow-hidden">
+        <section id="transformation" className="relative w-full py-20 lg:py-32 bg-white overflow-hidden">
             <div className="max-w-[1400px] mx-auto px-6 lg:px-16">
                 <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
 
