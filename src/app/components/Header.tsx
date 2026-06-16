@@ -24,6 +24,9 @@ const navLinks = [
     { label: "Contacts", href: "/contacts" },
 ];
 
+/** Pages with a light background at the top — header needs dark text from the start */
+const LIGHT_HEADER_ROUTES = new Set(["/contacts"]);
+
 export default function Header() {
     const [scrolled, setScrolled] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
@@ -31,6 +34,7 @@ export default function Header() {
     const [searchOpen, setSearchOpen] = useState(false);
     const searchOverlayRef = useRef<HTMLDivElement>(null);
     const pathname = usePathname();
+    const solidHeader = scrolled || LIGHT_HEADER_ROUTES.has(pathname);
 
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
         if (!searchOverlayRef.current) return;
@@ -60,7 +64,7 @@ export default function Header() {
                 initial={{ opacity: 0, y: -16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled
+                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${solidHeader
                     ? "bg-white backdrop-blur-md shadow-sm border-b border-slate-200"
                     : "bg-transparent"
                     }`}
@@ -75,7 +79,7 @@ export default function Header() {
                         className="flex-shrink-0"
                     >
                         <Link href="/" className="flex items-center gap-2.5">
-                            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-sky-400 via-blue-500 to-indigo-600 flex items-center justify-center ring-2 ring-white/20">
+                            <div className={`w-8 h-8 rounded-full border flex items-center justify-center transition-colors duration-300 ${solidHeader ? "border-slate-900 bg-slate-900" : "border-white/40 bg-white/10"}`}>
                                 <svg
                                     className="w-4 h-4 text-white"
                                     fill="none"
@@ -97,7 +101,7 @@ export default function Header() {
                                 </svg>
                             </div>
                             <span
-                                className={`text-lg tracking-tight transition-colors duration-300 ${scrolled ? "text-slate-900" : "text-white"
+                                className={`text-lg tracking-tight transition-colors duration-300 ${solidHeader ? "text-slate-900" : "text-white"
                                     }`}
                             >
                                 <span className="font-light">Smart</span>
@@ -124,7 +128,7 @@ export default function Header() {
                                     >
                                         <Link
                                             href={link.href}
-                                            className={`group relative flex items-center gap-1.5 text-[15px] font-medium transition-all duration-200 py-1 hover:-translate-y-0.5 ${scrolled
+                                            className={`group relative flex items-center gap-1.5 text-[15px] font-medium transition-all duration-200 py-1 hover:-translate-y-0.5 ${solidHeader
                                                 ? "text-slate-800 hover:text-slate-900"
                                                 : "text-white/90 hover:text-white"
                                                 }`}
@@ -132,7 +136,7 @@ export default function Header() {
                                             {link.label}
                                             {link.children && (
                                                 <motion.svg
-                                                    className={`w-3 h-3 transition-colors duration-300 ${scrolled ? "text-slate-600" : "opacity-60 text-white"
+                                                    className={`w-3 h-3 transition-colors duration-300 ${solidHeader ? "text-slate-600" : "opacity-60 text-white"
                                                         }`}
                                                     fill="none"
                                                     viewBox="0 0 24 24"
@@ -152,7 +156,7 @@ export default function Header() {
                                             )}
                                             {/* Active + hover underline */}
                                             <span
-                                                className={`absolute -bottom-1 left-0 right-0 h-[2px] rounded-full transition-transform duration-200 origin-left ${scrolled ? "bg-slate-900" : "bg-white"
+                                                className={`absolute -bottom-1 left-0 right-0 h-[2px] rounded-full transition-transform duration-200 origin-left ${solidHeader ? "bg-slate-900" : "bg-white"
                                                     } ${pathname === link.href
                                                         ? "scale-x-100"
                                                         : "scale-x-0 group-hover:scale-x-100"
@@ -205,7 +209,7 @@ export default function Header() {
                         >
                             <button
                                 onClick={() => setSearchOpen(true)}
-                                className={`p-1.5 rounded-md transition-all duration-200 hover:-translate-y-0.5 ${scrolled
+                                className={`p-1.5 rounded-md transition-all duration-200 hover:-translate-y-0.5 ${solidHeader
                                     ? "text-slate-700 hover:text-slate-900 hover:bg-slate-100"
                                     : "text-white/80 hover:text-white hover:bg-white/10"
                                     }`}
@@ -231,7 +235,7 @@ export default function Header() {
                     {/* Mobile hamburger */}
                     <button
                         onClick={() => setMobileOpen(!mobileOpen)}
-                        className={`lg:hidden p-2 rounded-md transition-colors ${scrolled
+                        className={`lg:hidden p-2 rounded-md transition-colors ${solidHeader
                             ? "text-slate-800 hover:bg-slate-100"
                             : "text-white hover:bg-white/50"
                             }`}
@@ -271,10 +275,10 @@ export default function Header() {
                             animate={{ opacity: 1, height: "auto" }}
                             exit={{ opacity: 0, height: 0 }}
                             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                            className={`lg:hidden overflow-hidden border-t ${scrolled ? "bg-white border-slate-200" : "border-white/10"
+                            className={`lg:hidden overflow-hidden border-t ${solidHeader ? "bg-white border-slate-200" : "border-white/10"
                                 }`}
                             style={
-                                !scrolled
+                                !solidHeader
                                     ? {
                                         background: "rgba(255,255,255,0.05)",
                                         backdropFilter: "blur(40px)",
@@ -294,7 +298,7 @@ export default function Header() {
                                             <Link
                                                 href={link.href}
                                                 onClick={() => !link.children && setMobileOpen(false)}
-                                                className={`flex items-center justify-between px-3 py-3 font-medium text-sm rounded-lg transition-all ${scrolled
+                                                className={`flex items-center justify-between px-3 py-3 font-medium text-sm rounded-lg transition-all ${solidHeader
                                                     ? pathname === link.href
                                                         ? "text-slate-900 bg-slate-200"
                                                         : "text-slate-800 hover:text-slate-900 hover:bg-slate-200"
@@ -324,7 +328,7 @@ export default function Header() {
 
                                         {link.children && (
                                             <div
-                                                className={`ml-3 mb-1 border-l pl-3 flex flex-col gap-1 ${scrolled ? "border-slate-200" : "border-white/10"
+                                                className={`ml-3 mb-1 border-l pl-3 flex flex-col gap-1 ${solidHeader ? "border-slate-200" : "border-white/10"
                                                     }`}
                                             >
                                                 {link.children.map((child, ci) => (
@@ -337,7 +341,7 @@ export default function Header() {
                                                         <Link
                                                             href={child.href}
                                                             onClick={() => setMobileOpen(false)}
-                                                            className={`block px-3 py-2 text-sm rounded-lg transition-all ${scrolled
+                                                            className={`block px-3 py-2 text-sm rounded-lg transition-all ${solidHeader
                                                                 ? pathname === child.href
                                                                     ? "text-slate-900 bg-slate-200"
                                                                     : "text-slate-500 hover:text-slate-900 hover:bg-slate-200"
@@ -362,7 +366,7 @@ export default function Header() {
                                             setMobileOpen(false);
                                             setSearchOpen(true);
                                         }}
-                                        className={`w-full flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm transition-all ${scrolled
+                                        className={`w-full flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm transition-all ${solidHeader
                                             ? "bg-slate-100 text-slate-500"
                                             : "bg-white/10 text-white/40"
                                             }`}
@@ -402,7 +406,7 @@ export default function Header() {
                         onClick={() => setSearchOpen(false)}
                         className="fixed inset-0 z-[200] flex flex-col justify-center"
                         style={{
-                            background: `radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(14,165,233,0.08) 0%, rgba(0,0,0,0.92) 60%)`,
+                            background: "rgba(0,0,0,0.94)",
                             backdropFilter: "blur(12px)",
                         }}
                     >
@@ -415,9 +419,9 @@ export default function Header() {
                             className="px-10 lg:px-24 w-full"
                         >
                             {/* Input row */}
-                            <div className="relative border-b border-sky-500/60 flex items-center gap-4 pb-3">
+                            <div className="relative border-b border-white/40 flex items-center gap-4 pb-3">
                                 <svg
-                                    className="w-5 h-5 text-sky-400 flex-shrink-0"
+                                    className="w-5 h-5 text-white/70 flex-shrink-0"
                                     fill="none"
                                     viewBox="0 0 24 24"
                                     stroke="currentColor"

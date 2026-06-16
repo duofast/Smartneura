@@ -17,7 +17,7 @@ const solutions = [
     {
         title: "Smart City",
         image: "/Home/Solutions/SmartCity.jpg",
-        bg: "#f0f9ff",
+        bg: "#f8fafc",
         tagline: "Connected urban ecosystems",
         description:
             "Intelligent infrastructure linking citizens, services, and systems for smarter, more responsive cities.",
@@ -43,7 +43,7 @@ const solutions = [
     {
         title: "Smart Street Lighting",
         image: "/Home/Solutions/StreetLighting.jpg",
-        bg: "#eff6ff",
+        bg: "#f8fafc",
         tagline: "Light that thinks ahead",
         description:
             "Adaptive lighting that cuts energy use, lowers costs, and keeps streets safe through intelligent control.",
@@ -56,7 +56,7 @@ const solutions = [
     {
         title: "Smart Transport",
         image: "/Home/Solutions/Transport.jpg",
-        bg: "#eef2ff",
+        bg: "#f8fafc",
         tagline: "Mobility without friction",
         description:
             "Integrated platforms for seamless, data-driven transportation across rail, road, and multimodal networks.",
@@ -82,7 +82,7 @@ const solutions = [
     {
         title: "Smart Utilities",
         image: "/Home/Solutions/Utilities.jpg",
-        bg: "#ecfdf5",
+        bg: "#f8fafc",
         tagline: "Resources, optimized",
         description:
             "Smart metering and grid intelligence for energy, water, and utilities that run leaner and greener.",
@@ -95,7 +95,7 @@ const solutions = [
     {
         title: "Network Virtualization",
         image: "/Home/Solutions/Network.jpg",
-        bg: "#eef2ff",
+        bg: "#f8fafc",
         tagline: "Infrastructure that flexes",
         description:
             "Software-defined networking built for carriers and enterprises that need speed, scale, and security.",
@@ -108,7 +108,7 @@ const solutions = [
     {
         title: "No Code & Low Code",
         image: "/Home/Solutions/NoCode.jpg",
-        bg: "#f5f3ff",
+        bg: "#f8fafc",
         tagline: "Build at the speed of ideas",
         description:
             "Rapid application platforms that let teams ship digital products without heavy engineering overhead.",
@@ -121,7 +121,7 @@ const solutions = [
     {
         title: "Generative AI",
         image: "/Home/Solutions/GenAI.jpg",
-        bg: "#f0fdfa",
+        bg: "#f8fafc",
         tagline: "Intelligence that amplifies",
         description:
             "Enterprise GenAI that transforms how organizations create, decide, and automate—with guardrails you trust.",
@@ -201,7 +201,7 @@ function SolutionStory({
                                 repeat: Infinity,
                                 ease: "easeInOut",
                             }}
-                            className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl shadow-[0_24px_60px_-12px_rgba(14,165,233,0.25)] ring-1 ring-sky-200/60"
+                            className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl shadow-[0_24px_60px_-12px_rgba(0,0,0,0.18)] ring-1 ring-black/10"
                         >
                             <Image
                                 src={solution.image}
@@ -212,7 +212,7 @@ function SolutionStory({
                                 priority={index < 2}
                             />
                             <div
-                                className="absolute inset-0 bg-gradient-to-tr from-sky-900/25 via-transparent to-white/10"
+                                className="absolute inset-0 bg-black/10"
                                 aria-hidden
                             />
                         </motion.div>
@@ -224,7 +224,7 @@ function SolutionStory({
                                     : { opacity: 0, scale: 0.8 }
                             }
                             transition={{ delay: 0.4, duration: 0.5, ease }}
-                            className="absolute -bottom-3 -right-2 flex h-14 w-14 items-center justify-center rounded-full bg-white text-lg font-bold text-sky-600 shadow-lg ring-2 ring-sky-100 sm:-right-4"
+                            className="absolute -bottom-3 -right-2 flex h-14 w-14 items-center justify-center rounded-md bg-white text-lg font-bold text-black shadow-lg ring-1 ring-black/10 sm:-right-4"
                         >
                             {num}
                         </motion.div>
@@ -239,7 +239,7 @@ function SolutionStory({
                     >
                         <motion.p
                             variants={itemVariants}
-                            className="mb-2 text-xs font-semibold uppercase tracking-[0.22em] text-sky-600"
+                            className="mb-2 text-xs font-semibold uppercase tracking-[0.22em] text-slate-900"
                         >
                             {num} — Smart Solutions
                         </motion.p>
@@ -274,7 +274,7 @@ function SolutionStory({
                                     key={h}
                                     className="flex items-start gap-2.5 text-sm text-slate-700 sm:text-base"
                                 >
-                                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-sky-500/15 text-sky-600">
+                                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-black text-white">
                                         <Check size={12} strokeWidth={2.5} />
                                     </span>
                                     {h}
@@ -289,14 +289,14 @@ function SolutionStory({
                             >
                                 <Link
                                     href="#transformation"
-                                    className="inline-flex items-center gap-2 rounded-full bg-sky-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-sky-500"
+                                    className="inline-flex items-center gap-2 rounded-md bg-black px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-black/85"
                                 >
                                     Start Your Transformation
                                     <ArrowRight size={16} />
                                 </Link>
                                 <Link
                                     href="/contacts"
-                                    className="inline-flex items-center gap-2 rounded-full border border-sky-200 bg-white/80 px-6 py-3 text-sm font-semibold text-slate-800 backdrop-blur-sm transition-colors hover:bg-white"
+                                    className="inline-flex items-center gap-2 rounded-md border border-black/20 bg-white px-6 py-3 text-sm font-semibold text-slate-900 transition-colors hover:bg-slate-100"
                                 >
                                     Contact Us
                                 </Link>
@@ -304,9 +304,9 @@ function SolutionStory({
                         ) : (
                             <motion.div
                                 variants={itemVariants}
-                                className="flex items-center gap-2 text-sm font-medium text-sky-600"
+                                className="flex items-center gap-2 text-sm font-medium text-slate-700"
                             >
-                                <span className="h-px w-8 bg-sky-400" />
+                                <span className="h-px w-8 bg-slate-700" />
                                 Scroll for next solution
                             </motion.div>
                         )}
@@ -325,7 +325,7 @@ function SolutionStory({
                             key={i}
                             className={`h-1.5 rounded-full transition-all duration-300 ${
                                 i === index
-                                    ? "w-8 bg-sky-500"
+                                    ? "w-8 bg-black"
                                     : "w-1.5 bg-slate-300"
                             }`}
                         />
@@ -358,7 +358,7 @@ function IntroPanel() {
                 >
                     <motion.p
                         variants={itemVariants}
-                        className="mb-4 text-xs font-semibold uppercase tracking-[0.22em] text-sky-600"
+                        className="mb-4 text-xs font-semibold uppercase tracking-[0.22em] text-slate-900"
                     >
                         What We Offer
                     </motion.p>
@@ -374,7 +374,7 @@ function IntroPanel() {
 
                     <motion.div
                         variants={itemVariants}
-                        className="mx-auto mb-6 h-1 w-16 rounded-full bg-gradient-to-r from-sky-500 to-indigo-500"
+                        className="mx-auto mb-6 h-1 w-16 rounded-full bg-black"
                     />
 
                     <motion.p
@@ -400,7 +400,7 @@ function IntroPanel() {
                                 className="min-w-[100px] rounded-2xl bg-white/70 px-5 py-4 shadow-sm ring-1 ring-slate-200/80 backdrop-blur-sm"
                             >
                                 <p
-                                    className={`${anton.className} text-3xl text-sky-600 sm:text-4xl`}
+                                    className={`${anton.className} text-3xl text-black sm:text-4xl`}
                                 >
                                     {stat.label}
                                 </p>

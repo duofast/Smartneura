@@ -2,6 +2,7 @@ import SolutionLayout from "../components/solutions/SolutionLayout";
 import SolutionHero from "../components/solutions/SolutionHero";
 import SolutionTextImage from "../components/solutions/SolutionTextImage";
 import SolutionBenefits from "../components/solutions/SolutionBenefits";
+import TechnologyPillars from "../components/solutions/TechnologyPillars";
 
 export default function SmartWaterMeteringPage() {
     return (
@@ -11,28 +12,7 @@ export default function SmartWaterMeteringPage() {
                 image="/Solutions/WaterMetering/Hero.jpg"
             />
 
-            <section className="bg-sky-600 py-16">
-                <div className="max-w-[1400px] mx-auto px-6 lg:px-16 text-center">
-                    <h2 className="text-2xl lg:text-3xl font-bold text-white mb-12 tracking-widest uppercase">
-                        Smart Neura Technology
-                    </h2>
-                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-                        {[
-                            { icon: "🧠", title: "Intelligence" },
-                            { icon: "🎯", title: "Precision" },
-                            { icon: "🔐", title: "Security" },
-                            { icon: "🤝", title: "Reliability" },
-                        ].map((item, i) => (
-                            <div key={item.title} className="flex flex-col items-center gap-3">
-                                <div className="w-20 h-20 rounded-full bg-white/20 flex items-center justify-center text-4xl">
-                                    {item.icon}
-                                </div>
-                                <p className="text-white font-semibold">{item.title}</p>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
+            <TechnologyPillars />
 
             <SolutionTextImage
                 title="Smart Water Metering System"
@@ -49,12 +29,12 @@ export default function SmartWaterMeteringPage() {
             <SolutionBenefits
                 title="System Components"
                 benefits={[
-                    { icon: "💧", title: "Meters", desc: "Ultra-sonic smart water meters with precise measurement and IoT connectivity." },
-                    { icon: "📡", title: "Reading Gateway", desc: "NB-IoT, LoRa and SigFox enabled gateways for wide area coverage." },
-                    { icon: "🏛️", title: "City / Municipal Authority", desc: "Unified management platform for water utility operations." },
-                    { icon: "📊", title: "Meter Data Management", desc: "Cloud-based data collection and analytics for water consumption insights." },
-                    { icon: "🔍", title: "Analytics", desc: "Real-time leak detection and consumption pattern analysis." },
-                    { icon: "📋", title: "Project Management", desc: "Complete project lifecycle management from planning to deployment." },
+                    { icon: "droplets", title: "Meters", desc: "Ultra-sonic smart water meters with precise measurement and IoT connectivity." },
+                    { icon: "radio", title: "Reading Gateway", desc: "NB-IoT, LoRa and SigFox enabled gateways for wide area coverage." },
+                    { icon: "landmark", title: "City / Municipal Authority", desc: "Unified management platform for water utility operations." },
+                    { icon: "bar-chart", title: "Meter Data Management", desc: "Cloud-based data collection and analytics for water consumption insights." },
+                    { icon: "search", title: "Analytics", desc: "Real-time leak detection and consumption pattern analysis." },
+                    { icon: "clipboard", title: "Project Management", desc: "Complete project lifecycle management from planning to deployment." },
                 ]}
             />
 

@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
 export async function POST(req: NextRequest) {
-    const { firstName, lastName, email, message } = await req.json();
+    const { firstName, lastName, email, phone, message } = await req.json();
 
     const transporter = nodemailer.createTransport({
         service: "gmail",
@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
                         <tr>
                             <td style="background:linear-gradient(135deg,#0ea5e9,#6366f1);border-radius:16px 16px 0 0;padding:40px 40px 32px;text-align:center;">
                                 <div style="width:56px;height:56px;background:rgba(255,255,255,0.2);border-radius:50%;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;">
-                                    <span style="font-size:24px;">✉️</span>
+                                    <span style="font-size:22px;font-weight:700;color:#ffffff;letter-spacing:1px;">SN</span>
                                 </div>
                                 <h1 style="margin:0;color:#ffffff;font-size:24px;font-weight:700;letter-spacing:-0.5px;">
                                     New Contact Message
@@ -53,11 +53,21 @@ export async function POST(req: NextRequest) {
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>
+                                        <td style="padding-bottom:16px;">
                                             <p style="margin:0 0 4px;font-size:11px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;">Email</p>
                                             <a href="mailto:${email}" style="margin:0;font-size:15px;color:#0ea5e9;text-decoration:none;font-weight:500;">${email}</a>
                                         </td>
                                     </tr>
+                                    ${
+                                        phone
+                                            ? `<tr>
+                                        <td>
+                                            <p style="margin:0 0 4px;font-size:11px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;">Phone</p>
+                                            <p style="margin:0;font-size:15px;color:#334155;font-weight:500;">${phone}</p>
+                                        </td>
+                                    </tr>`
+                                            : ""
+                                    }
                                 </table>
 
                                 <!-- Divider -->

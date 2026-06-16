@@ -2,6 +2,13 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { AnimatedStat } from "@/components/ui/animated-stat";
+
+const stats = [
+    { value: 100, suffix: "+", label: "Enterprises Transformed" },
+    { value: 15, suffix: "+", label: "Years of Expertise" },
+    { value: 98, suffix: "%", label: "Client Satisfaction" },
+];
 
 export default function Transformation() {
     return (
@@ -19,7 +26,7 @@ export default function Transformation() {
                     >
                         <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 leading-tight">
                             From Evaluation to{" "}
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-500 to-indigo-600">
+                            <span className="text-black">
                                 Transformation
                             </span>
                         </h2>
@@ -35,24 +42,15 @@ export default function Transformation() {
                             their goals with precision, efficiency, and scalability.
                         </p>
 
-                        {/* Subtle stat row */}
+                        {/* Stats — count up each time section enters view */}
                         <div className="flex flex-wrap gap-8 pt-4">
-                            {[
-                                { value: "100+", label: "Enterprises Transformed" },
-                                { value: "15+", label: "Years of Expertise" },
-                                { value: "98%", label: "Client Satisfaction" },
-                            ].map((stat) => (
-                                <motion.div
+                            {stats.map((stat) => (
+                                <AnimatedStat
                                     key={stat.label}
-                                    initial={{ opacity: 0, y: 16 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ duration: 0.5, delay: 0.3 }}
-                                    className="flex flex-col"
-                                >
-                                    <span className="text-3xl font-bold text-sky-500">{stat.value}</span>
-                                    <span className="text-sm text-slate-500 mt-1">{stat.label}</span>
-                                </motion.div>
+                                    value={stat.value}
+                                    suffix={stat.suffix}
+                                    label={stat.label}
+                                />
                             ))}
                         </div>
                     </motion.div>
@@ -65,15 +63,14 @@ export default function Transformation() {
                         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                         className="flex-1 w-full"
                     >
-                        <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl shadow-slate-200">
+                        <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl shadow-slate-200 ring-1 ring-black/10">
                             <Image
                                 src="/Home/EvolutionToTransformation.jpg"
                                 alt="From Evaluation to Transformation"
                                 fill
                                 className="object-cover"
                             />
-                            {/* Subtle overlay */}
-                            <div className="absolute inset-0 bg-gradient-to-tr from-sky-900/20 to-transparent" />
+                            <div className="absolute inset-0 bg-black/10" />
                         </div>
                     </motion.div>
 

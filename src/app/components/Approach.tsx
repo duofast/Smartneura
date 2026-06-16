@@ -38,7 +38,7 @@ const steps = [
     {
         title: "Execute and Transform",
         image: "/Home/Approach4.jpg",
-        color: "#e8f4fd",
+        color: "#f8fafc",
         points: [
             "Implement solutions and strategies with expert guidance and minimal disruption.",
             "Monitor progress and adapt strategies for optimal results.",
@@ -94,7 +94,7 @@ function ApproachCard({
                         className="object-cover"
                     />
                     {/* Step number */}
-                    <div className="absolute top-4 left-4 w-10 h-10 rounded-full bg-sky-500 flex items-center justify-center shadow-lg">
+                    <div className="absolute top-4 left-4 w-10 h-10 rounded-md bg-black flex items-center justify-center shadow-lg">
                         <span className="text-white font-bold text-sm">{index + 1}</span>
                     </div>
                 </div>
@@ -102,8 +102,8 @@ function ApproachCard({
                 {/* Text */}
                 <div className="flex-1 p-6 md:p-12 flex flex-col justify-center">
                     <div className="flex items-center gap-3 mb-4">
-                        <div className="h-[3px] w-8 bg-sky-500 rounded-full" />
-                        <span className="text-sky-500 text-sm font-semibold uppercase tracking-widest">
+                        <div className="h-[3px] w-8 bg-black rounded-full" />
+                        <span className="text-slate-900 text-sm font-semibold uppercase tracking-widest">
                             Step {index + 1} of {total}
                         </span>
                     </div>
@@ -122,7 +122,7 @@ function ApproachCard({
                                 transition={{ delay: pi * 0.1, duration: 0.4 }}
                                 className="flex items-start gap-3 text-slate-600 text-sm lg:text-base"
                             >
-                                <span className="w-2 h-2 rounded-full bg-sky-500 flex-shrink-0 mt-2" />
+                                <span className="w-2 h-2 rounded-full bg-black flex-shrink-0 mt-2" />
                                 <span dangerouslySetInnerHTML={{ __html: point }} />
                             </motion.li>
                         ))}

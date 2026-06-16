@@ -25,12 +25,12 @@ export default function SmartCityPage() {
             <SolutionBenefits
                 title="Benefits"
                 benefits={[
-                    { icon: "🔒", title: "Safety", desc: "Smart City enhances the security of your city by linking and automating smart technology." },
-                    { icon: "💎", title: "Saving", desc: "Proper regulation and interconnection of individual technologies can achieve significant savings." },
-                    { icon: "🌱", title: "Environment", desc: "Reducing traffic congestion, efficient operation of public transport, monitoring utilities and accident prevention." },
-                    { icon: "🌟", title: "A more enjoyable life", desc: "A smart city brings many personal benefits to its residents. From security to convenient transportation to even the Wi-Fi signal coverage." },
-                    { icon: "🏆", title: "A city of prestige", desc: "A clever and technologically advanced city with a satisfied population also attracts tourists." },
-                    { icon: "⚙️", title: "Automation", desc: "Based on time, light intensity, the movement of vehicles and other information, control lighting, transport or summon emergency services can be done automatically." },
+                    { icon: "lock", title: "Safety", desc: "Smart City enhances the security of your city by linking and automating smart technology." },
+                    { icon: "gem", title: "Saving", desc: "Proper regulation and interconnection of individual technologies can achieve significant savings." },
+                    { icon: "leaf", title: "Environment", desc: "Reducing traffic congestion, efficient operation of public transport, monitoring utilities and accident prevention." },
+                    { icon: "sparkles", title: "A more enjoyable life", desc: "A smart city brings many personal benefits to its residents. From security to convenient transportation to even the Wi-Fi signal coverage." },
+                    { icon: "trophy", title: "A city of prestige", desc: "A clever and technologically advanced city with a satisfied population also attracts tourists." },
+                    { icon: "settings", title: "Automation", desc: "Based on time, light intensity, the movement of vehicles and other information, control lighting, transport or summon emergency services can be done automatically." },
                 ]}
             />
 

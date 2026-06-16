@@ -27,7 +27,7 @@ const industries = [
     {
         title: "Government",
         image: "/Home/Industries/Government.png",
-        bg: "#f0f9ff",
+        bg: "#f8fafc",
         description:
             "Smart governance platforms that modernize public services and deliver citizen-first digital experiences.",
     },
@@ -41,14 +41,14 @@ const industries = [
     {
         title: "Banking",
         image: "/Home/Industries/Banking.png",
-        bg: "#eff6ff",
+        bg: "#f8fafc",
         description:
             "Digital transformation for financial institutions with compliance-ready architecture and omnichannel journeys.",
     },
     {
         title: "Telecom & Cloud",
         image: "/Home/Industries/Telecom.jpg",
-        bg: "#eef2ff",
+        bg: "#f8fafc",
         description:
             "Network virtualization, cloud-native infrastructure, and intelligent automation for global carriers.",
     },
@@ -62,28 +62,28 @@ const industries = [
     {
         title: "Energy & Utilities",
         image: "/Home/Industries/Energy.png",
-        bg: "#ecfdf5",
+        bg: "#f8fafc",
         description:
             "Smart grid management, renewable integration, and real-time metering for optimized delivery.",
     },
     {
         title: "Retail",
         image: "/Home/Industries/Retail.jpg",
-        bg: "#fdf2f8",
+        bg: "#f8fafc",
         description:
             "AI-powered omnichannel retail—inventory intelligence and personalized customer experiences.",
     },
     {
         title: "Education",
         image: "/Home/Industries/Education.jpg",
-        bg: "#f5f3ff",
+        bg: "#f8fafc",
         description:
             "Digital campuses and learning platforms connecting students, faculty, and administration securely.",
     },
     {
         title: "Healthcare",
         image: "/Home/Industries/Healthcare.jpg",
-        bg: "#f0fdfa",
+        bg: "#f8fafc",
         description:
             "Connected health ecosystems with clinical data security and interoperable patient-first systems.",
     },
@@ -383,7 +383,7 @@ export default function Industries() {
                     }}
                 >
                     <header className="relative z-50 shrink-0 pt-20 sm:pt-24 pb-1 px-6 text-center">
-                        <p className="text-sky-600 text-xs sm:text-sm font-semibold tracking-[0.22em] uppercase mb-2">
+                        <p className="text-slate-900 text-xs sm:text-sm font-semibold tracking-[0.22em] uppercase mb-2">
                             Who We Serve
                         </p>
                         <h2
@@ -392,7 +392,7 @@ export default function Industries() {
                         >
                             Industries
                         </h2>
-                        <div className="mt-3 mx-auto w-14 h-1 bg-gradient-to-r from-sky-500 to-indigo-500 rounded-full" />
+                        <div className="mt-3 mx-auto w-14 h-1 bg-black rounded-full" />
                     </header>
 
                     <div className="relative z-20 flex-1 min-h-0 w-full px-2 sm:px-4 pb-5">
@@ -422,7 +422,7 @@ export default function Industries() {
                                             <div
                                                 className={`relative w-full h-full rounded-2xl sm:rounded-3xl overflow-hidden bg-white shadow-2xl ${
                                                     isCenter
-                                                        ? "ring-2 ring-sky-400/40"
+                                                        ? "ring-2 ring-black/30"
                                                         : "ring-1 ring-slate-200/80"
                                                 }`}
                                             >
@@ -442,7 +442,15 @@ export default function Industries() {
 
                                                 {isCenter && (
                                                     <div className="absolute inset-0 flex flex-col justify-end">
-                                                        <div className="bg-gradient-to-t from-slate-950/95 via-slate-950/60 to-transparent pt-28 sm:pt-36 pb-6 sm:pb-8 px-5 sm:px-8">
+                                                        <div
+                                                            className="pointer-events-none absolute inset-0"
+                                                            aria-hidden
+                                                            style={{
+                                                                background:
+                                                                    "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.72) 28%, rgba(0,0,0,0.35) 52%, rgba(0,0,0,0.08) 72%, transparent 100%)",
+                                                            }}
+                                                        />
+                                                        <div className="relative z-10 pb-6 sm:pb-8 px-5 sm:px-8 pt-16 sm:pt-20">
                                                             <AnimatePresence mode="wait">
                                                                 <motion.div
                                                                     key={activeIndex}
@@ -463,7 +471,7 @@ export default function Industries() {
                                                                         ease: SLIDE_EASE,
                                                                     }}
                                                                 >
-                                                                    <p className="text-sky-300 text-[10px] sm:text-xs font-semibold tracking-[0.2em] uppercase mb-2">
+                                                                    <p className="text-white/70 text-[10px] sm:text-xs font-semibold tracking-[0.2em] uppercase mb-2 drop-shadow-sm">
                                                                         {String(
                                                                             activeIndex + 1
                                                                         ).padStart(2, "0")}{" "}
@@ -473,10 +481,10 @@ export default function Industries() {
                                                                             "0"
                                                                         )}
                                                                     </p>
-                                                                    <h3 className="text-white font-semibold text-xl sm:text-2xl lg:text-[1.75rem] mb-2 sm:mb-3 leading-tight">
+                                                                    <h3 className="text-white font-semibold text-xl sm:text-2xl lg:text-[1.75rem] mb-2 sm:mb-3 leading-tight drop-shadow-md">
                                                                         {industry.title}
                                                                     </h3>
-                                                                    <p className="text-white/90 text-xs sm:text-sm leading-relaxed max-w-md sm:max-w-lg">
+                                                                    <p className="text-white/90 text-xs sm:text-sm leading-relaxed max-w-md sm:max-w-lg drop-shadow-sm">
                                                                         {
                                                                             industry.description
                                                                         }
@@ -500,7 +508,7 @@ export default function Industries() {
                                         key={i}
                                         className={`h-1.5 rounded-full transition-all duration-500 ${
                                             i === activeIndex
-                                                ? "w-8 bg-gradient-to-r from-sky-500 to-indigo-600"
+                                                ? "w-8 bg-black"
                                                 : "w-1.5 bg-slate-400/50"
                                         }`}
                                     />
@@ -515,7 +523,7 @@ export default function Industries() {
                             </p>
                             <Link
                                 href="/contacts"
-                                className="inline-flex items-center gap-2 text-slate-700 text-sm font-semibold hover:text-sky-600 transition-colors"
+                                className="inline-flex items-center gap-2 text-slate-700 text-sm font-semibold hover:text-black transition-colors"
                             >
                                 Partner with SmartNeura
                                 <ArrowRight size={15} />

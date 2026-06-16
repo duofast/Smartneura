@@ -32,12 +32,12 @@ export default function SmartElectricMeteringPage() {
             <SolutionBenefits
                 title="System Components"
                 benefits={[
-                    { icon: "📡", title: "Meters", desc: "Advanced smart meters with IoT connectivity for real-time data collection." },
-                    { icon: "🗼", title: "Reading Gateway", desc: "High-coverage gateways ensuring reliable data transmission across urban areas." },
-                    { icon: "🏙️", title: "City / Municipal Authority", desc: "Centralized management for city-wide metering operations and oversight." },
-                    { icon: "📈", title: "Meter Data Management", desc: "Sophisticated data analytics platform for consumption insights and reporting." },
-                    { icon: "🔬", title: "Analytics", desc: "AI-powered analytics for demand forecasting and energy optimization." },
-                    { icon: "🛠️", title: "Project Management", desc: "End-to-end project deployment and ongoing system management support." },
+                    { icon: "radio", title: "Meters", desc: "Advanced smart meters with IoT connectivity for real-time data collection." },
+                    { icon: "tower", title: "Reading Gateway", desc: "High-coverage gateways ensuring reliable data transmission across urban areas." },
+                    { icon: "building", title: "City / Municipal Authority", desc: "Centralized management for city-wide metering operations and oversight." },
+                    { icon: "trending-up", title: "Meter Data Management", desc: "Sophisticated data analytics platform for consumption insights and reporting." },
+                    { icon: "flask", title: "Analytics", desc: "AI-powered analytics for demand forecasting and energy optimization." },
+                    { icon: "wrench", title: "Project Management", desc: "End-to-end project deployment and ongoing system management support." },
                 ]}
             />
         </SolutionLayout>

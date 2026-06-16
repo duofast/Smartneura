@@ -1,19 +1,123 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+import {
+    Check,
+    Loader2,
+    Mail,
+    MapPin,
+    Phone,
+    User,
+} from "lucide-react";
+import { anton, ease, inter, sectionContainer } from "@/lib/typography";
+
+const contactDetails = [
+    {
+        icon: MapPin,
+        title: "Visit our office",
+        value: "120 Spencer Street, Melbourne, Australia",
+        href: undefined,
+    },
+    {
+        icon: Phone,
+        title: "Call us anytime",
+        value: "0061-0425625489",
+        href: "tel:0061-0425625489",
+    },
+    {
+        icon: Mail,
+        title: "Email us",
+        value: "info@smartneura.com",
+        href: "mailto:info@smartneura.com",
+    },
+];
+
+function ContactRow({
+    icon: Icon,
+    title,
+    value,
+    href,
+}: {
+    icon: typeof MapPin;
+    title: string;
+    value: string;
+    href?: string;
+}) {
+    const inner = (
+        <div className="group flex items-center gap-5">
+            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-black text-white transition-transform duration-300 group-hover:scale-105">
+                <Icon size={20} strokeWidth={1.5} />
+            </span>
+            <div>
+                <p className="text-base font-semibold text-slate-900">{title}</p>
+                <p className="mt-0.5 text-sm text-slate-500">{value}</p>
+            </div>
+        </div>
+    );
+
+    if (href) {
+        return (
+            <Link href={href} className="block">
+                {inner}
+            </Link>
+        );
+    }
+
+    return inner;
+}
+
+function FormField({
+    id,
+    label,
+    required,
+    icon: Icon,
+    children,
+}: {
+    id: string;
+    label: string;
+    required?: boolean;
+    icon?: typeof User;
+    children: React.ReactNode;
+}) {
+    return (
+        <div>
+            <label
+                htmlFor={id}
+                className="mb-2 block text-sm font-medium text-slate-700"
+            >
+                {label}
+                {required ? <span className="text-red-500"> *</span> : null}
+            </label>
+            <div className="relative">
+                {Icon ? (
+                    <Icon
+                        size={18}
+                        strokeWidth={1.5}
+                        className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+                    />
+                ) : null}
+                {children}
+            </div>
+        </div>
+    );
+}
+
+const inputClass =
+    "w-full rounded-xl border border-slate-200 bg-white py-3 text-sm text-slate-900 outline-none transition-colors placeholder:text-slate-400 focus:border-slate-900 focus:ring-2 focus:ring-slate-900/8";
 
 export default function ContactHero() {
     const [formState, setFormState] = useState({
         firstName: "",
         lastName: "",
         email: "",
+        phone: "",
         message: "",
     });
     const [submitted, setSubmitted] = useState(false);
     const [sending, setSending] = useState(false);
     const [error, setError] = useState<string | null>(null);
-    const [focused, setFocused] = useState<string | null>(null);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -30,7 +134,13 @@ export default function ContactHero() {
             if (!res.ok) throw new Error("Failed");
 
             setSubmitted(true);
-            setFormState({ firstName: "", lastName: "", email: "", message: "" });
+            setFormState({
+                firstName: "",
+                lastName: "",
+                email: "",
+                phone: "",
+                message: "",
+            });
         } catch {
             setError("Something went wrong. Please try again.");
         } finally {
@@ -38,305 +148,228 @@ export default function ContactHero() {
         }
     };
 
-    const inputClass = (field: string) =>
-        `w-full bg-white/10 backdrop-blur-sm border rounded-lg px-4 py-3 text-white placeholder-white/40 outline-none transition-all duration-300 text-sm ${focused === field
-            ? "border-sky-400 bg-white/15 shadow-lg shadow-sky-500/10"
-            : "border-white/20 hover:border-white/40"
-        }`;
-
     return (
-        <section className="relative w-full min-h-screen overflow-hidden pb-[80px] -mb-[80px]">
-
-            {/* Background image */}
-            <div
-                className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-                style={{ backgroundImage: "url('/Contacts/ContactHero.jpg')" }}
-            />
-
-            {/* Dark overlay */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40" />
-
-            {/* Animated background blobs */}
-            <motion.div
-                animate={{ scale: [1, 1.1, 1], opacity: [0.15, 0.25, 0.15] }}
-                transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute top-20 left-10 w-96 h-96 rounded-full bg-sky-500 blur-3xl pointer-events-none"
-            />
-            <motion.div
-                animate={{ scale: [1, 1.15, 1], opacity: [0.1, 0.2, 0.1] }}
-                transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-                className="absolute bottom-20 right-10 w-80 h-80 rounded-full bg-indigo-500 blur-3xl pointer-events-none"
-            />
-
-            {/* Content */}
-            <div className="relative z-10 min-h-screen flex flex-col lg:flex-row items-center justify-center lg:justify-between gap-12 lg:gap-20 max-w-[1400px] mx-auto px-6 lg:px-16 py-32">
-
-                {/* LEFT — Title */}
-                <motion.div
-                    initial={{ opacity: 0, x: -60 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-                    className="flex-1 flex flex-col gap-6 text-center lg:text-left"
-                >
-                    <motion.p
-                        initial={{ opacity: 0, y: 16 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2, duration: 0.6 }}
-                        className="text-sky-400 text-sm font-semibold tracking-widest uppercase"
-                    >
-                        Get In Touch
-                    </motion.p>
-
-                    <motion.h1
+        <section className={`bg-white pt-28 pb-20 sm:pt-32 sm:pb-28 ${inter.className}`}>
+            <div className={sectionContainer}>
+                <div className="mx-auto grid max-w-6xl items-start gap-14 lg:grid-cols-2 lg:gap-20">
+                    {/* Left — headline + contact info */}
+                    <motion.div
                         initial={{ opacity: 0, y: 24 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.3, duration: 0.8, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-                        className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-thin text-white leading-tight tracking-tight"
-                        style={{ textShadow: "0 2px 40px rgba(0,0,0,0.5)" }}
+                        transition={{ duration: 0.7, ease }}
+                        className="flex flex-col gap-10"
                     >
-                        HOW TO{" "}
-                        <span className="font-black block">REACH US</span>
-                    </motion.h1>
-
-                    <motion.div
-                        initial={{ scaleX: 0 }}
-                        animate={{ scaleX: 1 }}
-                        transition={{ delay: 0.6, duration: 0.6 }}
-                        className="w-16 h-1 bg-gradient-to-r from-sky-400 to-indigo-500 rounded-full mx-auto lg:mx-0"
-                    />
-
-                    <motion.p
-                        initial={{ opacity: 0, y: 16 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.5, duration: 0.6 }}
-                        className="text-white/60 text-base lg:text-lg leading-relaxed max-w-md mx-auto lg:mx-0"
-                    >
-                        We'd love to hear from you. Send us a message and we'll respond as
-                        soon as possible.
-                    </motion.p>
-
-                    {/* Contact info pills */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 16 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.7, duration: 0.6 }}
-                        className="flex flex-col sm:flex-row lg:flex-col gap-3 items-center lg:items-start"
-                    >
-                        {[
-                            {
-                                icon: (
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                ),
-                                text: "120 Spencer Street, Melbourne, Australia",
-                            },
-                            {
-                                icon: (
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                                        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 7V5z" />
-                                ),
-                                text: "0061-0425625489",
-                            },
-                            {
-                                icon: (
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                ),
-                                text: "info@smartneura.com",
-                            },
-                        ].map((item, i) => (
-                            <motion.div
-                                key={i}
-                                whileHover={{ x: 4 }}
-                                transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                                className="flex items-center gap-3 bg-white/10 backdrop-blur-sm border border-white/15 rounded-lg px-4 py-2.5 text-sm text-white/80 hover:text-white hover:bg-white/15 transition-colors cursor-default"
+                        <div>
+                            <h1
+                                className={`${anton.className} text-[clamp(2rem,5vw,2.75rem)] font-normal uppercase leading-[1.05] tracking-tight text-slate-900`}
                             >
-                                <svg className="w-4 h-4 text-sky-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    {item.icon}
-                                </svg>
-                                {item.text}
-                            </motion.div>
-                        ))}
-                    </motion.div>
-                </motion.div>
+                                Let&apos;s Talk About Your Next Project!
+                            </h1>
+                            <p className="mt-5 max-w-md text-sm leading-relaxed text-slate-500 sm:text-base">
+                                Have questions about our solutions or want to discuss a
+                                partnership? Reach out — we&apos;re here to help you build
+                                smarter infrastructure.
+                            </p>
+                        </div>
 
-                {/* RIGHT — Form */}
-                <motion.div
-                    initial={{ opacity: 0, x: 60 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-                    className="w-full lg:w-[480px] flex-shrink-0"
-                >
-                    <div
-                        className="rounded-2xl p-6 sm:p-8 border border-white/15 shadow-2xl"
-                        style={{
-                            background: "rgba(10, 22, 40, 0.6)",
-                            backdropFilter: "blur(20px)",
-                        }}
+                        <div className="flex flex-col gap-8">
+                            {contactDetails.map((item) => (
+                                <ContactRow key={item.title} {...item} />
+                            ))}
+                        </div>
+                    </motion.div>
+
+                    {/* Right — form card */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 24 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.7, delay: 0.1, ease }}
                     >
-                        <AnimatePresence mode="wait">
-                            {submitted ? (
-                                <motion.div
-                                    key="success"
-                                    initial={{ opacity: 0, scale: 0.9 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    exit={{ opacity: 0, scale: 0.9 }}
-                                    className="flex flex-col items-center justify-center gap-4 py-12 text-center"
-                                >
+                        <div className="rounded-2xl border border-slate-100 bg-white p-7 shadow-[0_12px_48px_-12px_rgba(15,23,42,0.14)] sm:p-9">
+                            <AnimatePresence mode="wait">
+                                {submitted ? (
                                     <motion.div
-                                        initial={{ scale: 0 }}
-                                        animate={{ scale: 1 }}
-                                        transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                                        className="w-16 h-16 rounded-full bg-sky-500/20 border border-sky-400/40 flex items-center justify-center"
+                                        key="success"
+                                        initial={{ opacity: 0, y: 12 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: -12 }}
+                                        className="flex flex-col items-center py-14 text-center"
                                     >
-                                        <svg className="w-8 h-8 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                        </svg>
+                                        <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-full bg-black text-white">
+                                            <Check size={26} strokeWidth={2} />
+                                        </div>
+                                        <h3 className="text-lg font-semibold text-slate-900">
+                                            Message sent
+                                        </h3>
+                                        <p className="mt-2 max-w-xs text-sm text-slate-500">
+                                            Thank you for reaching out. We&apos;ll get back
+                                            to you shortly.
+                                        </p>
+                                        <button
+                                            type="button"
+                                            onClick={() => setSubmitted(false)}
+                                            className="mt-8 text-sm font-semibold text-slate-900 underline-offset-4 hover:underline"
+                                        >
+                                            Send another message
+                                        </button>
                                     </motion.div>
-                                    <h3 className="text-white text-xl font-semibold">Message Sent!</h3>
-                                    <p className="text-white/60 text-sm">
-                                        Thank you for reaching out. We'll get back to you shortly.
-                                    </p>
-                                    <motion.button
-                                        whileHover={{ scale: 1.02 }}
-                                        whileTap={{ scale: 0.98 }}
-                                        onClick={() => setSubmitted(false)}
-                                        className="mt-2 px-6 py-2 rounded-lg border border-sky-400/40 text-sky-400 text-sm hover:bg-sky-400/10 transition-colors"
+                                ) : (
+                                    <motion.form
+                                        key="form"
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        exit={{ opacity: 0 }}
+                                        onSubmit={handleSubmit}
+                                        className="flex flex-col gap-5"
                                     >
-                                        Send another message
-                                    </motion.button>
-                                </motion.div>
-                            ) : (
-                                <motion.form
-                                    key="form"
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    exit={{ opacity: 0 }}
-                                    onSubmit={handleSubmit}
-                                    className="flex flex-col gap-5"
-                                >
-                                    <div>
-                                        <h2 className="text-white text-xl font-semibold mb-1">
+                                        <h2 className="text-lg font-semibold text-slate-900">
                                             Send us a message
                                         </h2>
-                                        <p className="text-white/40 text-sm">
-                                            All fields marked with * are required.
-                                        </p>
-                                    </div>
 
-                                    {/* Name row */}
-                                    <div className="flex flex-col sm:flex-row gap-4">
-                                        <div className="flex-1">
-                                            <label className="block text-white/70 text-xs font-medium mb-1.5 uppercase tracking-wide">
-                                                First Name <span className="text-sky-400">*</span>
-                                            </label>
-                                            <motion.input
-                                                whileFocus={{ scale: 1.01 }}
-                                                type="text"
+                                        <div className="grid gap-5 sm:grid-cols-2">
+                                            <FormField
+                                                id="firstName"
+                                                label="First Name"
                                                 required
-                                                placeholder="John"
-                                                value={formState.firstName}
-                                                onChange={(e) => setFormState({ ...formState, firstName: e.target.value })}
-                                                onFocus={() => setFocused("firstName")}
-                                                onBlur={() => setFocused(null)}
-                                                className={inputClass("firstName")}
-                                            />
-                                        </div>
-                                        <div className="flex-1">
-                                            <label className="block text-white/70 text-xs font-medium mb-1.5 uppercase tracking-wide">
-                                                Last Name <span className="text-sky-400">*</span>
-                                            </label>
-                                            <motion.input
-                                                whileFocus={{ scale: 1.01 }}
-                                                type="text"
-                                                required
-                                                placeholder="Doe"
-                                                value={formState.lastName}
-                                                onChange={(e) => setFormState({ ...formState, lastName: e.target.value })}
-                                                onFocus={() => setFocused("lastName")}
-                                                onBlur={() => setFocused(null)}
-                                                className={inputClass("lastName")}
-                                            />
-                                        </div>
-                                    </div>
-
-                                    {/* Email */}
-                                    <div>
-                                        <label className="block text-white/70 text-xs font-medium mb-1.5 uppercase tracking-wide">
-                                            Email <span className="text-sky-400">*</span>
-                                        </label>
-                                        <motion.input
-                                            whileFocus={{ scale: 1.01 }}
-                                            type="email"
-                                            required
-                                            placeholder="john@example.com"
-                                            value={formState.email}
-                                            onChange={(e) => setFormState({ ...formState, email: e.target.value })}
-                                            onFocus={() => setFocused("email")}
-                                            onBlur={() => setFocused(null)}
-                                            className={inputClass("email")}
-                                        />
-                                    </div>
-
-                                    {/* Message */}
-                                    <div>
-                                        <label className="block text-white/70 text-xs font-medium mb-1.5 uppercase tracking-wide">
-                                            Comment or Message <span className="text-sky-400">*</span>
-                                        </label>
-                                        <motion.textarea
-                                            whileFocus={{ scale: 1.01 }}
-                                            required
-                                            rows={5}
-                                            placeholder="Tell us how we can help..."
-                                            value={formState.message}
-                                            onChange={(e) => setFormState({ ...formState, message: e.target.value })}
-                                            onFocus={() => setFocused("message")}
-                                            onBlur={() => setFocused(null)}
-                                            className={`${inputClass("message")} resize-none`}
-                                        />
-                                    </div>
-
-                                    {/* Error */}
-                                    <AnimatePresence>
-                                        {error && (
-                                            <motion.p
-                                                initial={{ opacity: 0, y: -8 }}
-                                                animate={{ opacity: 1, y: 0 }}
-                                                exit={{ opacity: 0, y: -8 }}
-                                                className="text-red-400 text-sm text-center"
+                                                icon={User}
                                             >
-                                                {error}
-                                            </motion.p>
-                                        )}
-                                    </AnimatePresence>
-
-                                    {/* Submit */}
-                                    <motion.button
-                                        whileHover={{ scale: 1.02, y: -1 }}
-                                        whileTap={{ scale: 0.98 }}
-                                        transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                                        type="submit"
-                                        disabled={sending}
-                                        className="w-full py-3.5 rounded-lg bg-gradient-to-r from-sky-500 to-indigo-600 text-white font-semibold text-sm tracking-wide shadow-lg shadow-sky-500/25 hover:shadow-sky-500/40 transition-shadow duration-300 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-                                    >
-                                        {sending ? (
-                                            <>
-                                                <motion.div
-                                                    animate={{ rotate: 360 }}
-                                                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                                                    className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full"
+                                                <input
+                                                    id="firstName"
+                                                    type="text"
+                                                    required
+                                                    placeholder="John"
+                                                    value={formState.firstName}
+                                                    onChange={(e) =>
+                                                        setFormState({
+                                                            ...formState,
+                                                            firstName: e.target.value,
+                                                        })
+                                                    }
+                                                    className={`${inputClass} pl-11 pr-4`}
                                                 />
-                                                Sending...
-                                            </>
-                                        ) : (
-                                            "Submit"
-                                        )}
-                                    </motion.button>
-                                </motion.form>
-                            )}
-                        </AnimatePresence>
-                    </div>
-                </motion.div>
+                                            </FormField>
+                                            <FormField
+                                                id="lastName"
+                                                label="Last Name"
+                                                required
+                                                icon={User}
+                                            >
+                                                <input
+                                                    id="lastName"
+                                                    type="text"
+                                                    required
+                                                    placeholder="Doe"
+                                                    value={formState.lastName}
+                                                    onChange={(e) =>
+                                                        setFormState({
+                                                            ...formState,
+                                                            lastName: e.target.value,
+                                                        })
+                                                    }
+                                                    className={`${inputClass} pl-11 pr-4`}
+                                                />
+                                            </FormField>
+                                        </div>
+
+                                        <FormField
+                                            id="email"
+                                            label="Email"
+                                            required
+                                            icon={Mail}
+                                        >
+                                            <input
+                                                id="email"
+                                                type="email"
+                                                required
+                                                placeholder="john@example.com"
+                                                value={formState.email}
+                                                onChange={(e) =>
+                                                    setFormState({
+                                                        ...formState,
+                                                        email: e.target.value,
+                                                    })
+                                                }
+                                                className={`${inputClass} pl-11 pr-4`}
+                                            />
+                                        </FormField>
+
+                                        <FormField
+                                            id="phone"
+                                            label="Phone Number"
+                                            icon={Phone}
+                                        >
+                                            <input
+                                                id="phone"
+                                                type="tel"
+                                                placeholder="+61 400 000 000"
+                                                value={formState.phone}
+                                                onChange={(e) =>
+                                                    setFormState({
+                                                        ...formState,
+                                                        phone: e.target.value,
+                                                    })
+                                                }
+                                                className={`${inputClass} pl-11 pr-4`}
+                                            />
+                                        </FormField>
+
+                                        <FormField
+                                            id="message"
+                                            label="Message"
+                                            required
+                                        >
+                                            <textarea
+                                                id="message"
+                                                required
+                                                rows={5}
+                                                placeholder="Tell us about your project..."
+                                                value={formState.message}
+                                                onChange={(e) =>
+                                                    setFormState({
+                                                        ...formState,
+                                                        message: e.target.value,
+                                                    })
+                                                }
+                                                className={`${inputClass} resize-none px-4`}
+                                            />
+                                        </FormField>
+
+                                        <AnimatePresence>
+                                            {error ? (
+                                                <motion.p
+                                                    initial={{ opacity: 0, y: -6 }}
+                                                    animate={{ opacity: 1, y: 0 }}
+                                                    exit={{ opacity: 0, y: -6 }}
+                                                    className="rounded-lg bg-red-50 px-4 py-3 text-center text-sm text-red-600"
+                                                >
+                                                    {error}
+                                                </motion.p>
+                                            ) : null}
+                                        </AnimatePresence>
+
+                                        <button
+                                            type="submit"
+                                            disabled={sending}
+                                            className="mt-1 w-full rounded-xl bg-black py-3.5 text-sm font-semibold text-white transition-colors hover:bg-slate-900 disabled:cursor-not-allowed disabled:opacity-60"
+                                        >
+                                            {sending ? (
+                                                <span className="inline-flex items-center justify-center gap-2">
+                                                    <Loader2
+                                                        size={16}
+                                                        className="animate-spin"
+                                                    />
+                                                    Sending...
+                                                </span>
+                                            ) : (
+                                                "Send Message"
+                                            )}
+                                        </button>
+                                    </motion.form>
+                                )}
+                            </AnimatePresence>
+                        </div>
+                    </motion.div>
+                </div>
             </div>
         </section>
     );

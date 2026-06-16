@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { SectionHeader } from "@/components/ui/section-header";
+import { anton, ease, inter, sectionContainer, sectionSpacing } from "@/lib/typography";
 
 const values = [
     {
@@ -38,68 +40,62 @@ function ValueCard({
         <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
+            viewport={{ once: false, margin: "-60px" }}
             transition={{
                 duration: 0.7,
-                delay: index * 0.15,
-                ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
+                delay: index * 0.12,
+                ease,
             }}
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
-            className="flex flex-col cursor-pointer group z-40"
+            className="group z-40 flex cursor-pointer flex-col"
         >
-            {/* Image */}
-            <div className="relative w-full aspect-[4/3] overflow-hidden rounded-xl shadow-md">
+            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl shadow-md">
                 <motion.div
                     animate={{ scale: hovered ? 1.06 : 1 }}
-                    transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-                    className="w-full h-full"
+                    transition={{ duration: 0.5, ease }}
+                    className="h-full w-full"
                 >
                     <Image
                         src={value.image}
                         alt={value.title}
                         fill
                         className="object-cover"
+                        sizes="(min-width: 1024px) 33vw, 90vw"
                     />
                 </motion.div>
 
-                {/* Overlay */}
                 <motion.div
                     animate={{ opacity: hovered ? 1 : 0 }}
                     transition={{ duration: 0.3 }}
-                    className="absolute inset-0 bg-gradient-to-t from-[#0a1628]/80 via-[#0a1628]/30 to-transparent flex flex-col justify-end p-5"
+                    className="absolute inset-0 flex flex-col justify-end bg-black/75 p-4 sm:p-5"
                 >
                     <motion.p
                         animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 10 }}
                         transition={{ duration: 0.3 }}
-                        className="text-white/90 text-sm leading-relaxed"
+                        className="text-sm leading-relaxed text-white/90"
                     >
                         {value.description}
                     </motion.p>
                 </motion.div>
             </div>
 
-            {/* Title */}
             <motion.div
                 animate={{ y: hovered ? -2 : 0 }}
                 transition={{ duration: 0.3 }}
                 className="mt-4 text-center"
             >
                 <h3
-                    className={`text-lg font-semibold transition-colors duration-200 ${index === 0 || index === 2
-                        ? "font-bold text-slate-900"
-                        : "text-slate-700"
-                        } group-hover:text-sky-600`}
+                    className={`${anton.className} text-lg uppercase tracking-tight text-slate-900 transition-colors duration-200 group-hover:text-black sm:text-xl`}
                 >
                     {value.title}
                 </h3>
             </motion.div>
 
-            {/* Underline */}
             <motion.div
                 animate={{ scaleX: hovered ? 1 : 0 }}
                 transition={{ duration: 0.3 }}
-                className="mt-1 mx-auto w-12 h-[2px] bg-gradient-to-r from-sky-500 to-indigo-500 rounded-full origin-center"
+                className="mx-auto mt-1 h-0.5 w-12 origin-center rounded-full bg-black"
             />
         </motion.div>
     );
@@ -107,30 +103,19 @@ function ValueCard({
 
 export default function AboutCoreValues() {
     return (
-        <section className="relative w-full py-16 lg:py-24 bg-white overflow-hidden">
+        <section
+            className={`relative w-full overflow-hidden bg-white ${sectionSpacing} ${inter.className}`}
+        >
+            <div className={sectionContainer}>
+                <div className="mb-12 flex justify-center sm:mb-14">
+                    <SectionHeader
+                        eyebrow="Core Values"
+                        title="Three Segments We Promote"
+                        align="center"
+                    />
+                </div>
 
-            {/* Background decoration */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[300px] rounded-full bg-sky-50 blur-3xl opacity-70 pointer-events-none" />
-
-            <div className="relative max-w-[1400px] mx-auto px-6 lg:px-16">
-
-                {/* Header */}
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-                    className="text-center mb-14"
-                >
-                    <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-slate-700 leading-relaxed">
-                        To achieve this vision we are promoting three segments as our core
-                        values
-                    </h2>
-                    <div className="mt-4 mx-auto w-16 h-1 bg-gradient-to-r from-sky-500 to-indigo-500 rounded-full" />
-                </motion.div>
-
-                {/* Cards grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+                <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:gap-10">
                     {values.map((value, i) => (
                         <ValueCard key={value.title} value={value} index={i} />
                     ))}
